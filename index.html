@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>万岁山武侠城 · 节目单</title>
+<style>
+:root{
+  --paper:#f7f3e8; --ink:#242a35; --gold:#c9a35c; --red:#b0342a; --red-d:#8c2820;
+  --line:#e4dcc8; --card:#fffdf7; --green:#2e7d4f; --green-bg:#e6f4ec; --orange:#b06a1b; --orange-bg:#fdf1df;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;-webkit-text-size-adjust:100%}
+header{background:linear-gradient(160deg,#23222a 0%,#332b2b 70%,#402c1f 100%);color:#f5ead2;padding:18px 16px 0;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.wrap{max-width:760px;margin:0 auto}
+h1{font-size:20px;letter-spacing:2px;display:flex;align-items:center;gap:8px}
+h1 .mark{font-size:14px;color:var(--gold);border:1px solid var(--gold);border-radius:4px;padding:1px 6px;letter-spacing:1px}
+.sub{font-size:12px;color:#cbb98f;margin:2px 0 10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:0}
+.tab{flex:1;min-width:96px;text-align:center;background:rgba(255,255,255,.06);color:#e8d9b8;border:1px solid rgba(201,163,92,.35);border-bottom:none;border-radius:10px 10px 0 0;padding:9px 6px 8px;cursor:pointer;font-size:14px;transition:all .15s}
+.tab small{display:block;font-size:10px;color:#9c8c68;letter-spacing:1px}
+.tab.on{background:var(--paper);color:var(--ink);font-weight:700;border-color:var(--paper)}
+.controls{background:var(--paper);padding:10px 16px 8px;border-bottom:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.controls input[type=text]{flex:1;min-width:140px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff}
+.controls button{border:1px solid var(--line);background:#fff;color:var(--ink);padding:7px 10px;border-radius:8px;font-size:13px;cursor:pointer;white-space:nowrap}
+.controls button.on{background:var(--red);border-color:var(--red);color:#fff}
+.controls button.mini{padding:7px 8px}
+.nowbar{background:#23362c;color:#cfe9da;font-size:13px;padding:8px 16px;display:none}
+.nowbar b{color:#7fd6a4}
+.nowbar .tm{color:#9db8a8}
+.nowbar .t{background:#2e7d4f;border-radius:4px;padding:1px 7px;margin:1px 3px;display:inline-block;color:#fff}
+.nowbar .soon{background:#5d4a2a;border-radius:4px;padding:1px 7px;margin:1px 3px;display:inline-block;color:#f3d9a5}
+main{max-width:760px;margin:0 auto;padding:12px 12px 30px}
+.venue{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 4px rgba(60,40,10,.06)}
+.venue-head{display:flex;align-items:center;gap:8px;padding:9px 12px;background:linear-gradient(90deg,#efe5cd,#f8f2e2);border-bottom:1px solid var(--line)}
+.venue-head .vname{font-weight:700;font-size:15px;color:#5a4218;letter-spacing:1px}
+.venue-head .cnt{font-size:11px;color:#8a7343;background:#fff;border:1px solid var(--line);border-radius:10px;padding:1px 7px}
+.row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px dashed #eee5d2;flex-wrap:wrap}
+.row:last-child{border-bottom:none}
+.row.off{opacity:.45}
+.row.off .nm{text-decoration:line-through}
+.nm{flex:1;min-width:140px;font-size:14.5px;font-weight:600;color:#33302a}
+.nm .star{color:#d99e2b;margin-right:2px}
+.nm .book{font-size:10px;color:#fff;background:var(--red);border-radius:3px;padding:0 4px;margin-left:5px;vertical-align:1px;font-weight:400}
+.chips{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.chip{font-size:12.5px;background:#f0ead9;color:#4a4231;border-radius:5px;padding:2px 7px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip.tbd{background:#fdeedd;color:#b06a1b}
+.chip.off{background:#eee;color:#999}
+.chip.now{background:var(--green);color:#fff;font-weight:700;animation:pl 1.6s infinite}
+.chip.soon{background:var(--orange-bg);color:var(--orange)}
+@keyframes pl{0%,100%{box-shadow:0 0 0 0 rgba(46,125,79,.5)}50%{box-shadow:0 0 0 5px rgba(46,125,79,0)}}
+.meta{font-size:11.5px;color:#9a8d72;flex-basis:100%;margin-top:-2px;padding-left:2px}
+.hour{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.hour-head{background:linear-gradient(90deg,#33291b,#4a3b24);color:#e9d9b2;padding:8px 12px;font-weight:700;letter-spacing:2px;display:flex;justify-content:space-between;align-items:center}
+.hour-head .hcnt{font-size:11px;color:#a8966d;letter-spacing:0}
+.hour .row .ven{font-size:11px;color:#8a7343;background:#f3ecd9;border-radius:4px;padding:1px 6px;white-space:nowrap}
+.area-title{font-size:14px;color:#5a4218;letter-spacing:3px;margin:2px 2px 10px;display:flex;align-items:center;gap:8px}
+.area-title::before{content:"";flex:0 0 4px;height:18px;background:var(--red);border-radius:2px}
+.empty{padding:40px 16px;text-align:center;color:#9a8d72;font-size:14px}
+footer{max-width:760px;margin:0 auto;padding:6px 16px 40px;font-size:12px;color:#8a7c5f;text-align:center}
+footer b{color:#6a5a3c}
+.goto-now{position:fixed;right:14px;bottom:18px;background:var(--red);color:#fff;border:none;border-radius:50%;width:52px;height:52px;font-size:12px;font-weight:700;box-shadow:0 4px 12px rgba(140,40,32,.45);cursor:pointer;z-index:60;display:none;line-height:1.2;padding:0}
+body.photo header,body.photo .controls,body.photo .nowbar,body.photo .goto-now,body.photo footer{display:none!important}
+.ptitle{text-align:center;padding:20px 0 6px}
+.ptitle .p1{font-size:20px;font-weight:700;letter-spacing:3px;color:#3a2d17}
+.ptitle .p2{font-size:13px;color:#8a7343;margin-top:5px;letter-spacing:2px}
+/* 地点查询：当前节目+下一场 */
+.loccard{background:var(--card);border:2px solid var(--gold);border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:0 2px 8px rgba(60,40,10,.12)}
+.lchead{background:linear-gradient(90deg,#33291b,#4a3b24);color:#e9d9b2;padding:10px 14px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.lchead .lcven{background:rgba(255,255,255,.12);border:1px solid rgba(201,163,92,.6);border-radius:5px;padding:2px 8px;font-size:12px;color:#f3d9a5;letter-spacing:1px}
+.lcnow,.lcnext{padding:12px 14px;border-bottom:1px dashed #eee5d2}
+.lcnext{border-bottom:none}
+.lcnow{background:var(--green-bg)}
+.lcnow .lc-n{color:#1d5c38}
+.lcnext{background:var(--orange-bg)}
+.lcnext .lc-n{color:#7c4c14}
+.lcnow.idle,.lcnext.idle{background:#f4f4f1}
+.lcnow.idle .lc-n,.lcnext.idle .lc-n{color:#9a9a90}
+.lc-l{font-size:11px;letter-spacing:3px;color:#9a8d72;font-weight:700}
+.lc-n{font-size:19px;font-weight:800;margin:3px 0;letter-spacing:1px}
+.lc-m{font-size:13px;color:#6a5c41}
+.bar{height:6px;background:#d5e8db;border-radius:3px;margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:3px}
+.pg-h{font-size:13px;font-weight:700;color:#5a4218;letter-spacing:2px;margin:12px 2px 6px}
+.pg{display:flex;flex-wrap:wrap;gap:6px}
+.pv{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 10px;font-size:13px;color:var(--ink);cursor:pointer}
+.pv.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
+.hint{background:var(--card);border:1px dashed var(--gold);border-radius:12px;padding:16px;text-align:center;color:#8a7343;font-size:14px;margin-bottom:14px}
+.lbl{font-size:10px;border-radius:3px;padding:1px 5px;margin-left:3px;font-weight:700}
+.lbl.now{background:var(--green);color:#fff}
+.lbl.next{background:var(--orange-bg);color:var(--orange);border:1px solid #e8c892}
+/* 区域实况 */
+.areabar{background:linear-gradient(90deg,#33291b,#4a3b24);color:#e9d9b2;padding:10px 14px;border-radius:12px;font-weight:700;font-size:16px;letter-spacing:2px;margin:4px 0 10px;text-align:center}
+.ac{background:var(--green-bg);border:1px solid #bfe0cd;border-radius:12px;padding:10px 14px;margin-bottom:8px}
+.ac .ac-n{font-size:16px;font-weight:800;color:#1d5c38;letter-spacing:1px}
+.ac .ac-m{font-size:12.5px;color:#4a7a5c;margin:2px 0 6px}
+.rec{background:var(--orange-bg);border:2px solid #e2b96e;border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.rec .rc-l{font-size:11px;letter-spacing:2px;color:#8a5a12;font-weight:700}
+.rec .rc-n{font-size:19px;font-weight:800;color:#7c4c14;margin:4px 0}
+.rec .rc-m{font-size:13.5px;color:#8a6426}
+@media (max-width:480px){.nm{font-size:14px}.chip{font-size:12px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>⚔️ 万岁山武侠城 <span class="mark">节目单</span></h1>
+    <div class="sub">三大区整理版 · 按片区/按时间排列 · 来源：景区节目单图片</div>
+    <nav class="tabs" id="tabs"></nav>
+  </div>
+  <div class="controls" id="ctrls">
+    <button id="bLoc" class="on" onclick="setMode('loc')">📍 查地点</button>
+    <button id="bArea" onclick="setMode('area')">🎪 区域实况</button>
+    <button id="bList" onclick="setMode('browse')">📜 全部节目单</button>
+    <input type="text" id="q" placeholder="🔍 搜节目或地点…">
+    <button id="bView" onclick="toggleView()" style="display:none">📅 时间轴</button>
+    <button id="bOff" class="on" onclick="toggleOff()">隐藏停演</button>
+    <button id="bStar" onclick="toggleStar()">只看★</button>
+  </div>
+  <div class="nowbar" id="nowbar"></div>
+</header>
+<main id="main"></main>
+<button class="goto-now" id="bNow" onclick="scrollNow()">现在<br>进行中</button>
+<footer>
+  ★ 为重点推荐剧目　<b>需预约</b> 为大戏（如三打祝家庄、打铁花，请在官方小程序预约）<br>
+  演出时间如遇极端天气或临时调整，请以景区当天广播为准<br>
+  数据整理自景区节目单图片 · 识别整理可能存在个别误差，请与原图核对
+</footer>
+<script>
+/* ============ 数据 ============ */
+var AREAS=[
+{name:"水浒区",short:"水浒",sub:"含山水田园区",venues:[
+{v:"水浒营寨",shows:[
+ {n:"林冲练兵",y:"互动情景剧类",m:30,ts:["10:00","15:50"]},
+ {n:"五虎斗八骠",y:"实景剧类",m:30,o:1},
+ {n:"梁山聚义招贤",y:"互动类",m:60,ts:["14:20"]},
+]},
+{v:"聚义厅",shows:[
+ {n:"山东快板",y:"非遗类",m:20,o:1},
+]},
+{v:"水浒街·快活林",shows:[
+ {n:"武大郎新传",y:"情景互动类",m:15,ts:["09:15","10:15"],s:1},
+ {n:"非遗猴戏表演",y:"民俗表演类",m:15,o:1},
+ {n:"杨志卖刀 · 林冲怒打高衙内 · 鲁智深拳打镇关西 · 狮子楼",y:"实景系列剧类（轮演）",m:35,ts:["10:30","16:30"],s:1},
+]},
+{v:"水浒街",shows:[
+ {n:"大宋·街头巷语",y:"舞蹈类",m:5,ts:["15:40"]},
+ {n:"肉铺局中局",y:"互动情景剧类",m:20,ts:["17:10","18:20"]},
+ {n:"宋潮雅集·汴梁烟火",y:"情景剧舞蹈类",m:25,ts:["17:40","20:15"],s:1},
+ {n:"狮子楼",y:"实景剧类",m:5,ts:["18:50"]},
+]},
+{v:"水浒街茶馆",shows:[
+ {n:"七侠五义",y:"实景剧类",m:15,ts:["09:00"]},
+ {n:"非遗斗鸡表演",y:"民俗表演类",m:15,ts:["09:30","13:30","14:10","15:30"]},
+ {n:"实景相声",y:"民俗表演类",m:10,ts:["09:30","11:20"]},
+ {n:"非遗变脸",y:"民俗表演类",m:10,ts:["09:10","10:30","13:10","14:50","16:20","17:05","17:35"]},
+ {n:"包青天",y:"戏曲表演类",m:5,ts:["09:40","14:05"]},
+ {n:"双簧",y:"民俗表演类",m:10,ts:["09:50","11:30","14:40","16:00"]},
+ {n:"打銮驾",y:"戏曲表演类",m:10,ts:["10:00","14:30"]},
+ {n:"林冲战杨志",y:"实景剧类",m:10,ts:["10:15","15:55"],s:1},
+ {n:"探阴山",y:"戏曲表演类",m:10,ts:["10:50","15:30"]},
+ {n:"王大人",y:"达人互动类",m:40,ts:["11:05","16:05"]},
+ {n:"山东快板",y:"非遗类",m:10,o:1},
+ {n:"三岔口",y:"戏曲表演类",m:10,ts:["11:40","13:30","15:25","17:25"]},
+ {n:"对口相声",y:"民俗表演类",m:15,ts:["12:15","13:45","16:50","17:50","18:10","18:55"]},
+ {n:"武术秀",y:"武术类",m:10,ts:["12:15","17:50","19:15"]},
+ {n:"穆桂英挂帅",y:"戏曲表演类",m:10,o:1},
+ {n:"林冲棒打洪教头",y:"实景剧类",m:15,ts:["14:40"],s:1},
+ {n:"醉打蒋门神",y:"实景剧类",m:15,ts:["15:10"],s:1},
+ {n:"抬花轿",y:"戏曲表演类",m:10,o:1},
+ {n:"皮影戏",y:"民俗表演类",m:20,ts:["18:30","19:10","20:15","20:50"]},
+ {n:"木偶戏",y:"民俗表演类",m:10,ts:["19:40"]},
+ {n:"风雪山神庙",y:"实景剧类",m:15,ts:["20:05"],s:1},
+ {n:"搞怪变脸",y:"非遗类",m:20,ts:["21:15"]},
+]},
+{v:"水浒擂台",shows:[
+ {n:"燕青打擂",y:"实景剧类",m:15,ts:["09:35","16:10"]},
+ {n:"王漂亮劲舞派对",y:"达人互动类",m:60,ts:["11:00"]},
+ {n:"老嫂子欢乐大舞台",y:"达人互动类",m:90,ts:["14:00"],s:1},
+]},
+{v:"王婆舞台",shows:[
+ {n:"赵本山模仿秀",y:"达人互动类",m:30,ts:["10:30","19:00"]},
+ {n:"王婆说媒",y:"达人互动类",m:60,ts:["16:30"],s:1},
+]},
+{v:"武侠广场",shows:[
+ {n:"520乐队",y:"达人互动类",m:60,ts:["10:20","14:20"]},
+ {n:"云南打跳舞",y:"达人互动类",m:60,ts:["11:30","16:00"],s:1},
+ {n:"伞风笠影",y:"舞蹈类",m:10,ts:["14:10","15:05"]},
+ {n:"木鼓回响",y:"舞蹈类",m:15,ts:["15:45","17:05"],s:1},
+ {n:"二娘的秀",y:"达人互动类",m:90,ts:["17:30"],s:1},
+ {n:"布吉岛乐队",y:"音乐互动类",m:60,o:1},
+ {n:"部落之声",y:"舞蹈类",m:10,ts:["19:10（待定）"]},
+ {n:"宋武火韵",y:"武术表演类",m:5,ts:["19:20","21:30"]},
+ {n:"祭火迎神",y:"舞蹈类",m:10,ts:["19:30（待定）","21:00","22:15（待定）"],s:1},
+ {n:"鱼灯影·梦樊楼",y:"舞蹈类",m:5,ts:["19:55"]},
+ {n:"布吉岛乐队",y:"音乐互动类",m:60,ts:["20:00"]},
+]},
+{v:"王婆岛·水系",shows:[
+ {n:"水上迎亲",y:"情景互动类",m:15,ts:["09:10","10:00","10:55","11:45","14:20","15:10","16:00","17:00"],s:1},
+]},
+{v:"王婆岛东岛",shows:[
+ {n:"宝宝欢乐秀",y:"达人互动",m:40,ts:["10:30"]},
+ {n:"十三有东",y:"达人互动类",m:40,ts:["12:00"]},
+ {n:"行不星",y:"达人互动类",m:40,ts:["16:00"]},
+ {n:"小胖老师达人秀",y:"达人互动类",m:60,ts:["18:30"]},
+]},
+{v:"王婆岛",shows:[
+ {n:"大嫂斗舞",y:"达人互动类",m:60,ts:["09:30"]},
+ {n:"玉芬来了",y:"达人互动类",m:60,ts:["10:50"]},
+ {n:"万岁山大舞台",y:"达人互动类",m:60,ts:["12:30","20:00"]},
+ {n:"韦小宝互动",y:"达人互动类",m:90,ts:["14:30"],s:1},
+ {n:"哈哈笑剧场",y:"达人互动类",m:60,ts:["16:20"]},
+]},
+{v:"王婆岛西岛",shows:[
+ {n:"万岁山老男人",y:"达人互动类",m:60,o:1},
+ {n:"王漂亮劲舞派对",y:"达人互动类",m:90,o:1},
+ {n:"万岁山老男人",y:"达人互动类",m:60,o:1},
+ {n:"520乐队",y:"达人互动类",m:60,o:1},
+]},
+{v:"城寨沙场",shows:[
+ {n:"遇见西域",y:"巡游类",m:50,ts:["09:20","11:40","12:50","15:15"]},
+ {n:"三打祝家庄",y:"大型实景剧类",m:30,ts:["11:00","14:00（待定）","17:00"],s:1,b:1},
+ {n:"打铁花",y:"大型实景剧类",m:30,ts:["19:30","21:00","22:15（待定）"],s:1,b:1},
+]},
+/* ===== 山水田园区 ===== */
+{v:"西大门广场",shows:[
+ {n:"梁山招兵",y:"实景互动类",m:10,ts:["09:00","15:00"]},
+ {n:"周通抢亲",y:"实景武术类",m:10,ts:["09:18","15:18"],s:1},
+ {n:"老鼠娶亲",y:"乐器类",m:10,ts:["09:30","10:25","11:25","14:20","15:40"]},
+ {n:"霓裳龙影",y:"舞蹈+武术类",m:5,ts:["09:35"]},
+ {n:"武韵传习",y:"武术类",m:10,ts:["09:40"]},
+ {n:"雷鼓祈舞",y:"乐器类",m:10,ts:["10:00","10:50","11:40","14:00","14:40","15:20"]},
+ {n:"千年恋江湖书",y:"舞蹈+武术类",m:15,ts:["10:10"]},
+ {n:"牵丝滩韵",y:"舞蹈类",m:10,ts:["10:25","11:35","14:35"]},
+ {n:"遇见国潮",y:"舞蹈+武术类",m:10,ts:["10:35","16:40"],s:1},
+ {n:"武道",y:"武术类",m:10,ts:["11:00"]},
+]},
+{v:"大宋武馆",shows:[
+ {n:"四大名捕",y:"实景武术类",m:15,ts:["11:20"]},
+ {n:"武林盟会",y:"实景武术类",m:15,ts:["11:50","17:00","20:35"]},
+ {n:"游梦四著",y:"舞蹈+武术类",m:10,ts:["14:20"]},
+ {n:"风栖纱语",y:"舞蹈类",m:5,ts:["14:50"]},
+ {n:"百拳争霸",y:"武术类",m:10,ts:["16:30"]},
+ {n:"武林大会",y:"实景武术+互动",m:30,ts:["17:55"]},
+ {n:"决战聚贤庄",y:"实景武术类",m:10,ts:["18:35"]},
+ {n:"武道",y:"武术类",m:10,ts:["19:10"],s:1},
+ {n:"石锁",y:"非遗类",m:10,ts:["19:50","20:25"]},
+]},
+{v:"武馆广场",shows:[
+ {n:"问道",y:"武术类",m:10,ts:["09:00","14:00","19:00"],s:1},
+ {n:"牵丝韵",y:"舞蹈类",m:10,ts:["15:35"]},
+ {n:"江湖笑谈",y:"实景类",m:10,ts:["19:50"]},
+ {n:"遇见国潮",y:"舞蹈+武术类",m:10,ts:["20:10"],s:1},
+ {n:"侠捕寻踪",y:"互动剧本杀",m:30,ts:["21:00"]},
+]},
+{v:"林溪亭",shows:[
+ {n:"乡音有戏",y:"互动类",m:20,ts:["10:10","15:05"]},
+ {n:"华安外传",y:"达人互动类",m:30,ts:["11:00"]},
+ {n:"教主“疯了”",y:"达人互动类",m:30,ts:["13:30","15:30"]},
+ {n:"亭畔弦音",y:"互动类",m:20,ts:["14:20","17:15"]},
+]},
+{v:"十字坡",shows:[
+ {n:"李逵断案",y:"实景互动类",m:15,ts:["09:35","15:35"],s:1},
+ {n:"飞云浦",y:"实景武术类",m:10,ts:["09:45","15:30","17:55"]},
+ {n:"民间绝活",y:"杂技类",m:20,ts:["09:55","10:55","12:40","16:50"]},
+ {n:"劫道",y:"实景剧类",m:10,ts:["10:00","15:40"]},
+ {n:"十字坡",y:"实景武术类",m:15,ts:["10:35"]},
+ {n:"巨人小矮人",y:"互动类",m:20,o:1,s:1},
+ {n:"东坡雨·少年情",y:"舞蹈类",m:10,ts:["11:10","15:30"]},
+ {n:"杰克红舞蹈",y:"特型互动类",m:15,ts:["11:15","12:15","14:00","16:00","17:20"],s:1},
+ {n:"谁是武林盟主",y:"互动类",m:15,ts:["11:35","14:15"]},
+ {n:"学堂·子衿",y:"舞蹈类",m:5,o:1},
+ {n:"神舟谜案",y:"互动类",m:50,ts:["14:10","15:10"]},
+ {n:"石家班招募",y:"杂技类",m:50,ts:["14:30"]},
+ {n:"宋都鼓韵",y:"舞蹈类",m:10,ts:["14:35","16:15"],s:1},
+ {n:"上春山",y:"舞蹈类",m:10,o:1},
+ {n:"江湖萌侠喜乐会",y:"互动类",m:15,ts:["15:50"]},
+ {n:"街头卖艺",y:"杂技类",m:10,ts:["16:20"]},
+ {n:"万岁山诗词大会",y:"互动类",m:10,ts:["16:30","18:00"]},
+ {n:"花式跳绳",y:"杂技类",m:10,ts:["17:10"],s:1},
+ {n:"蹬鼓",y:"杂技类",m:5,o:1},
+ {n:"空竹水流星",y:"杂技类",m:5,ts:["19:25","20:45","21:35"]},
+ {n:"杂技蹬技",y:"杂技类",m:5,ts:["19:30","20:40","21:40"]},
+ {n:"欢乐派对",y:"杂技类",m:15,ts:["20:20"]},
+ {n:"踏球逐乐",y:"杂技类",m:5,o:1},
+ {n:"杆上逐云",y:"杂技类",m:10,o:1},
+ {n:"双人独竹漂",y:"非遗类",m:10,o:1},
+]},
+{v:"神舟广场",shows:[
+ {n:"烟雨云台",y:"舞蹈类",m:10,o:1,s:1},
+ {n:"水上飞人",y:"水上特技类",m:5,o:1},
+ {n:"六指琴魔",y:"舞蹈类",m:5,ts:["16:50"]},
+ {n:"古今一梦",y:"情景舞蹈类",m:15,ts:["17:00"],s:1},
+ {n:"旋转威亚秀",y:"杂技类",m:5,ts:["18:20","18:50"]},
+ {n:"月满宋韵",y:"情景舞蹈类",m:15,ts:["19:00"],s:1},
+ {n:"神舟铁花",y:"非遗类",m:15,ts:["19:30","21:00","22:15（待定）"],s:1},
+ {n:"丝路扬帆",y:"特效类",m:10,o:1},
+ {n:"国粹风潮",y:"非遗类",m:15,ts:["20:15"],s:1},
+ {n:"神舟传奇",y:"实景剧类",m:20,ts:["21:45"],s:1},
+]},
+{v:"琵琶亭",shows:[
+ {n:"古乐新声",y:"乐器类",m:15,ts:["09:30","10:20","11:00","11:40","14:00","14:50","15:45","16:40"]},
+ {n:"竹弦寄月",y:"乐器类",m:30,ts:["18:30","19:40","20:25"]},
+]},
+{v:"巡游",shows:[
+ {n:"国潮群丑闹汴梁",y:"巡游互动类",m:30,ts:["09:10","11:00","13:40","17:50"],s:1},
+]},
+{v:"中门广场",shows:[
+ {n:"上古字慧",y:"互动类",m:40,ts:["09:50","11:05","14:20"]},
+ {n:"西域盛宴",y:"舞蹈类",m:10,ts:["10:40","11:50","16:05"],s:1},
+ {n:"山东快板",y:"非遗类",m:10,o:1},
+ {n:"花漫龙坛",y:"舞蹈类",m:5,ts:["14:10"],s:1},
+ {n:"和靖先生诵学堂",y:"互动类",m:30,ts:["15:10"]},
+ {n:"武侠快闪",y:"舞蹈类",m:15,ts:["18:30"]},
+ {n:"镜花水月",y:"舞蹈类",m:5,ts:["19:45","20:25","20:55"]},
+]},
+{v:"龙坛",shows:[
+ {n:"诗词互动",y:"互动类",m:120,ts:["16:30"]},
+ {n:"龙跃星河",y:"非遗类",m:5,o:1},
+ {n:"华族别宵",y:"巡游类",m:10,ts:["20:40"]},
+]},
+]},
+{name:"江湖狂欢区",short:"狂欢",sub:"含仙侠奇境区",venues:[
+{v:"东门内广场",shows:[
+ {n:"印度木桩舞",y:"杂技类",m:8,ts:["08:50","10:00","13:00","17:20"]},
+ {n:"手技秀",y:"杂技类",m:10,ts:["09:15","10:15","11:00","12:00","13:40","15:00","16:30","17:00"]},
+ {n:"多人荡杆",y:"杂技类",m:5,ts:["09:30","10:50","13:55","15:05"],s:1},
+ {n:"科学实验站",y:"互动类",m:30,ts:["09:50","11:10","13:15","14:25","15:50"]},
+ {n:"飞棒炫技",y:"杂技类",m:5,ts:["14:10","15:15","15:35","16:30"]},
+ {n:"摇滚木偶车",y:"互动类",m:20,ts:["16:10","17:10","18:20","19:10","20:20","21:25"]},
+ {n:"蒸汽人偶",y:"人偶类",m:20,ts:["16:10","17:10","18:20","19:10","20:20","21:25"]},
+]},
+{v:"舞酷剧场",shows:[
+ {n:"最开始的地方",y:"舞蹈类",m:5,ts:["09:10","09:45"]},
+ {n:"一步之遥",y:"舞蹈类",m:5,ts:["11:20","12:20","13:50","15:10","16:15","17:35","18:55","19:30"]},
+ {n:"妖",y:"舞蹈类",m:4,ts:["14:55","15:35","15:55"]},
+ {n:"光序",y:"舞蹈类",m:5,ts:["17:40","19:00"]},
+ {n:"往日",y:"舞蹈类",m:5,o:1},
+ {n:"芳华",y:"舞蹈类",m:5,o:1},
+]},
+{v:"戏曲剧场",shows:[
+ {n:"大闹天宫",y:"戏曲类",m:12,ts:["09:45","10:35","12:15","13:40","15:25","16:10"]},
+ {n:"打龙袍",y:"戏曲类",m:8,ts:["10:00","10:50","12:00"]},
+ {n:"武家坡",y:"戏曲类",m:15,ts:["10:15","11:05","12:30","13:20","15:05"]},
+ {n:"三打白骨精",y:"戏曲类",m:30,ts:["11:25","14:20","17:00"]},
+ {n:"李逵探母",y:"戏曲类",m:5,ts:["12:50","13:55","14:55"]},
+ {n:"钟馗-跳判",y:"戏曲类",m:7,ts:["13:05","15:55","16:25","18:10","18:50","19:35"]},
+ {n:"穆桂英挂帅-捧印",y:"戏曲类",m:8,ts:["14:05","15:40","17:45","18:30","19:10","19:50"]},
+]},
+{v:"水晶广场",shows:[
+ {n:"高跷-巨人",y:"高跷类",m:20,ts:["08:20","09:30","19:00","20:10","21:20"]},
+ {n:"梦幻家族·萌宠大巡游",y:"巡游类",m:40,ts:["12:00","14:00","16:20"]},
+ {n:"高跷-蒸汽球",y:"杂技类",m:20,ts:["13:00","14:10","15:10","15:50"]},
+ {n:"高跷-镜面人",y:"高跷类",m:20,ts:["13:00","13:40","14:30","15:30"]},
+ {n:"彩虹游走奇遇记",y:"巡游类",m:20,ts:["17:00"]},
+ {n:"高跷-蝙蝠侠",y:"杂技类",m:20,o:1},
+]},
+{v:"主干道",shows:[
+ {n:"量子纠缠",y:"舞蹈类",m:20,ts:["09:45","12:50","14:25","16:10","16:30"],s:1},
+ {n:"空灵之声",y:"舞蹈类",m:5,ts:["14:20","16:25","20:15"]},
+ {n:"侠影",y:"舞蹈类",m:40,ts:["15:00","17:00"],s:1},
+ {n:"三重奏",y:"舞蹈类",m:6,ts:["19:00","19:45","21:45"]},
+ {n:"蓝调交响乐",y:"乐器类",m:30,o:1},
+]},
+{v:"舞秀剧场",shows:[
+ {n:"音乐百分百",y:"歌唱类",m:10,ts:["09:20","10:05","10:30","11:00","11:30","12:00","12:10","12:20","12:35","13:00","14:25","14:35","16:45","17:10"]},
+ {n:"萨克斯",y:"乐器类",m:15,ts:["09:45","10:15","10:45","11:15","11:40","12:45"]},
+ {n:"剪韵华裳",y:"模特类",m:10,ts:["16:15","16:35","18:10","21:00","21:35"],s:1},
+ {n:"花语走秀",y:"模特类",m:15,ts:["18:45","19:30","20:20"],s:1},
+ {n:"STAR合唱团",y:"歌唱类",m:15,o:1},
+]},
+{v:"音乐广场",shows:[
+ {n:"萨克斯",y:"乐器类",m:15,ts:["08:30","09:05","10:50","11:25","13:50","14:20","15:30","15:40","18:30","18:55","19:50","20:40"]},
+ {n:"时代潮流音乐秀",y:"音乐舞蹈类",m:55,ts:["13:20"],s:1},
+ {n:"潮玩活力派对",y:"音乐舞蹈类",m:45,ts:["15:30"],s:1},
+ {n:"老顽童DJ",y:"音乐互动类",m:30,ts:["16:20","19:05"]},
+ {n:"欢乐捷克棒",y:"杂技类",m:10,ts:["17:00"]},
+ {n:"音乐百分百",y:"歌唱类",m:10,ts:["18:30","18:55","19:50","20:40"]},
+ {n:"粉色音爆电音派对",y:"音乐舞蹈类",m:60,ts:["19:30"],s:1},
+ {n:"活化石乐队",y:"音乐互动类",m:30,ts:["21:20"]},
+]},
+{v:"音乐酒吧",shows:[
+ {n:"说唱计划",y:"音乐互动类",m:10,ts:["15:20","16:40","17:05","18:40"]},
+ {n:"肌肉女魔术师",y:"互动类",m:10,ts:["16:20","16:50","17:20","20:30"]},
+ {n:"活化石乐队",y:"音乐互动类",m:30,ts:["19:10"]},
+ {n:"老顽童DJ",y:"音乐互动类",m:30,ts:["20:05","21:20"]},
+ {n:"弹唱歌手",y:"音乐互动类",m:30,o:1},
+]},
+{v:"搏击馆",shows:[
+ {n:"机械伙伴",y:"互动类",m:5,ts:["08:50","09:30","09:55","10:45","11:45","12:13","13:15","16:25"]},
+ {n:"散打",y:"竞技类",m:30,ts:["10:00","14:40"]},
+ {n:"秘鲁流行舞",y:"舞蹈类",m:7,ts:["10:05","11:30","18:10"]},
+ {n:"泰拳",y:"竞技类",m:45,ts:["11:00","16:25"]},
+ {n:"自由搏击",y:"竞技类",m:45,ts:["11:50","18:45"]},
+ {n:"外籍啦啦操",y:"舞蹈类",m:7,ts:["11:53","12:53","13:53","19:03","19:43"]},
+ {n:"花式灌篮",y:"竞技类",m:15,ts:["12:00","13:00","14:00","16:10","19:10"]},
+ {n:"长短兵",y:"竞技类",m:30,ts:["14:10","15:25","18:15","19:30","20:30","21:20"]},
+ {n:"拳击",y:"竞技类",m:45,o:1},
+ {n:"模特演出",y:"模特类",m:20,o:1},
+ {n:"健美展示",y:"模特类",m:20,o:1},
+ {n:"卡林卡",y:"舞蹈类",m:7,o:1},
+ {n:"欢乐捷克棒",y:"杂技类",m:10,ts:["14:30"]},
+ {n:"幸福能量补给站-可爱巡游",y:"巡游类",m:40,ts:["14:40","18:20"],s:1},
+ {n:"哥伦比亚萨尔萨",y:"舞蹈类",m:5,ts:["15:05","19:15"]},
+]},
+{v:"仙侠广场",shows:[
+ {n:"莫妮卡Monica",y:"舞蹈类",m:5,ts:["09:00","10:30","11:00"]},
+ {n:"快乐崇拜",y:"舞蹈类",m:5,ts:["10:55","11:40","12:55","19:40"]},
+ {n:"初升的太阳",y:"舞蹈互动类",m:10,ts:["11:20","13:40"]},
+ {n:"万岁山女团-炽野",y:"舞蹈类",m:5,ts:["16:20","18:40"]},
+ {n:"流光",y:"舞蹈类",m:10,ts:["16:50","19:05"]},
+ {n:"黎明曙光：废土狂响",y:"巡游类",m:40,ts:["17:30","20:40"],s:1},
+ {n:"万岁山男团Onenight",y:"舞蹈类",m:5,ts:["17:50"],s:1},
+ {n:"悬溺",y:"舞蹈类",m:5,ts:["17:55"]},
+ {n:"飞棒炫技",y:"杂技类",m:5,ts:["20:10"]},
+ {n:"银伶之歌",y:"歌曲类",m:15,ts:["21:25"]},
+ {n:"飞飞中文才艺盲盒秀",y:"互动类",m:10,o:1,s:1},
+]},
+{v:"70/80街区",shows:[
+ {n:"路灯下的小姑娘",y:"舞蹈类",m:5,ts:["11:35","12:35","13:25"]},
+ {n:"时代在召唤",y:"舞蹈互动类",m:10,ts:["12:25","14:30"]},
+ {n:"浪漫樱花",y:"舞蹈类",m:5,ts:["14:20","16:40","17:55"]},
+ {n:"迪斯科",y:"舞蹈类",m:5,ts:["14:25","15:25"]},
+ {n:"迎亲",y:"互动类",m:20,ts:["15:00","16:00","17:00","18:00","19:00","20:00"],s:1},
+ {n:"保洁来啦",y:"舞蹈类",m:5,o:1},
+ {n:"时光K歌局",y:"音乐互动类",m:40,o:1},
+]},
+{v:"银丝古建主干道",shows:[
+ {n:"初升的太阳",y:"舞蹈互动类",m:10,ts:["08:10","09:10"]},
+ {n:"时代在召唤",y:"舞蹈互动类",m:10,ts:["08:40","09:40"]},
+ {n:"豫见财神",y:"互动类",m:30,ts:["14:00","15:30","17:00","18:30","20:00","21:30"]},
+ {n:"长板秀",y:"互动类",m:10,ts:["14:15","15:20","17:20","18:10"]},
+ {n:"小麻街舞团",y:"互动类",m:15,ts:["16:35","17:20","18:20","19:15","19:45","20:20"]},
+]},
+{v:"绿茵草坪",shows:[
+ {n:"极限自行车",y:"特技类",m:20,ts:["13:40","15:10","16:00","17:00"]},
+]},
+{v:"空中花海营地",shows:[
+ {n:"钢琴独奏",y:"乐器类",m:20,ts:["08:30","09:10","09:50","10:50","11:50","13:30","15:00","15:40"]},
+ {n:"少年琴志",y:"乐器类",m:20,ts:["08:50","09:30","11:10","12:55","13:50","15:20","16:00","17:20"]},
+ {n:"白日琴叙",y:"乐器类",m:20,o:1},
+]},
+{v:"帐篷区",shows:[
+ {n:"花海鹦趣",y:"互动类",m:15,ts:["11:00","12:00","14:00","15:00","16:00","16:45"]},
+ {n:"猫头鹰舞蹈",y:"互动类",m:20,ts:["12:40","13:40","14:40","15:40","17:20","18:10"]},
+]},
+{v:"吊床区",shows:[
+ {n:"花涧画师",y:"人模互动类",m:120,ts:["10:00","15:00"]},
+ {n:"沙贝琴",y:"乐器类",m:15,o:1},
+ {n:"虫虫闹翻天",y:"互动类",m:20,o:1},
+]},
+{v:"收音机区",shows:[
+ {n:"梦幻泡泡秀",y:"互动类",m:15,ts:["15:10","15:25","16:10","17:50","18:05","19:00","19:15","19:45"]},
+ {n:"弹唱歌手",y:"音乐互动类",m:30,o:1},
+]},
+{v:"松果森林",shows:[
+ {n:"东方印第安",y:"舞蹈类",m:15,o:1},
+]},
+{v:"音乐啤酒广场",shows:[
+ {n:"多重奏打击乐演出",y:"乐器类",m:15,ts:["10:20","11:00","11:30","12:50","14:30"]},
+ {n:"嘻哈说唱",y:"歌唱类",m:15,ts:["10:40","11:15","11:45","13:10","14:55"]},
+ {n:"高跷-驯龙师",y:"高跷类",m:20,ts:["11:35","13:40","15:00","16:00"]},
+ {n:"海豚人偶",y:"人偶类",m:20,ts:["13:40","15:00","16:00","17:20","18:10","19:30"]},
+ {n:"高跷-萝卜兔",y:"互动类",m:20,ts:["13:30","14:40","15:35","17:35"]},
+ {n:"音乐百分百",y:"歌唱类",m:10,ts:["14:15","14:45","15:40","16:30","17:20","18:25"]},
+ {n:"爱的罗曼斯乐队",y:"乐器类",m:30,o:1},
+ {n:"兔子人偶",y:"人偶类",m:20,o:1},
+]},
+{v:"主干道·恐龙互动",shows:[
+ {n:"红色恐龙-山山",y:"互动类",m:20,ts:["14:40","15:40","17:20","19:30","20:40"]},
+ {n:"黄色恐龙-万万",y:"互动类",m:20,ts:["18:50","20:00"]},
+ {n:"粉色恐龙-岁岁",y:"互动类",m:20,o:1},
+]},
+/* ===== 仙侠奇境区 ===== */
+{v:"北仙街",shows:[
+ {n:"双人绸吊",y:"杂技类",m:5,ts:["09:40","10:45","12:05","12:50"]},
+ {n:"坤道御剑",y:"舞蹈类",m:5,ts:["11:00","14:00","16:00"]},
+ {n:"《镇灵决》",y:"舞蹈类",m:5,ts:["11:30","12:10","13:50","14:40"]},
+ {n:"落日歌单",y:"歌唱类",m:10,ts:["12:30","13:35","14:10","14:50"]},
+ {n:"白华仙君互动",y:"互动类",m:40,ts:["18:45","20:05"]},
+ {n:"火舞",y:"舞蹈类",m:15,ts:["21:05"]},
+ {n:"入魔",y:"舞蹈类",m:5,ts:["21:20"]},
+ {n:"回响",y:"歌唱类",m:10,o:1},
+]},
+{v:"魔力广场",shows:[
+ {n:"火舞",y:"舞蹈类",m:15,ts:["16:50","17:40","18:10"]},
+ {n:"仙侠奇境之七星北斗",y:"实景类",m:20,ts:["18:20","20:40"],s:1},
+ {n:"请多关照乐队",y:"歌唱类",m:30,ts:["18:45"]},
+ {n:"《灵音-霓虹》",y:"舞蹈类",m:5,ts:["19:20"]},
+ {n:"《壁画灵音》",y:"舞蹈类",m:5,ts:["19:30","21:45"]},
+ {n:"仙魔会",y:"舞蹈类",m:30,ts:["19:50"],s:1},
+ {n:"星河灯会放飞仪式",y:"互动类",m:10,ts:["20:30"],s:1},
+ {n:"氟西汀乐队",y:"歌唱类",m:30,ts:["20:20","21:05","21:55"]},
+ {n:"仙侠巡游",y:"巡游类",m:30,ts:["15:50","19:05"],s:1},
+ {n:"《灵面溯仙踪》",y:"舞蹈类",m:10,o:1},
+]},
+{v:"仙侠奇境广场",shows:[
+ {n:"聚仙之玄境仙踪",y:"舞蹈类",m:10,ts:["17:25","19:40"],s:1},
+ {n:"奶龙巡游",y:"巡游类",m:30,ts:["18:00"]},
+ {n:"聚仙之星河渡影",y:"舞蹈类",m:10,ts:["18:40","20:50"],s:1},
+ {n:"花船巡游",y:"巡游类",m:10,ts:["19:30","20:20"]},
+ {n:"仙侠奇境：河灯许愿会",y:"互动类",m:20,ts:["20:00"]},
+ {n:"仙侠巡游-开场舞",y:"舞蹈类",m:5,ts:["21:40"]},
+]},
+{v:"玲珑棋局",shows:[
+ {n:"玲珑棋局（古筝/乐器）",y:"演奏类",m:5,ts:["08:30","10:30","12:15","14:15","17:15","19:50"]},
+ {n:"白华仙君互动",y:"达人类",m:30,ts:["15:00"]},
+ {n:"玲珑棋局（乐器踏月仙音）",y:"演奏类",m:30,ts:["18:30","21:10"]},
+ {n:"国色天香灵兽互动",y:"互动类",m:20,o:1},
+ {n:"欢乐斗舞",y:"达人类",m:30,o:1},
+]},
+{v:"仙界广场",shows:[
+ {n:"钢环",y:"杂技类",m:5,ts:["08:30","09:10","09:45","10:20","11:10","12:05"]},
+ {n:"飞仙眷侣",y:"舞蹈杂技类",m:5,ts:["09:00","10:00","11:00","12:00","14:00"]},
+ {n:"吊伞",y:"杂技类",m:5,ts:["09:15","10:15","11:15","14:10"]},
+ {n:"飞杆侠客",y:"杂技类",m:5,ts:["09:30","10:10","11:50","12:30"]},
+ {n:"杂技秀",y:"杂技类",m:25,ts:["10:30","11:20","12:50"]},
+ {n:"弹跳龙互动",y:"杂技类",m:10,ts:["15:30","17:45"]},
+ {n:"民族篝火舞",y:"舞蹈类",m:25,ts:["16:25","20:35"],s:1},
+ {n:"天灵结界前传",y:"舞蹈类",m:20,ts:["16:55","21:10"]},
+ {n:"大话西游",y:"实景武术类",m:15,ts:["20:15"]},
+ {n:"双人闪电侠",y:"特技类",m:5,ts:["21:00","21:37","21:55"]},
+ {n:"立绳",y:"杂技类",m:5,o:1},
+ {n:"双人对手",y:"杂技舞蹈类",m:5,o:1},
+]},
+{v:"飞仙桥",shows:[
+ {n:"云海惊鸿",y:"舞蹈类",m:10,ts:["12:40","13:20","14:50","17:20"],s:1},
+ {n:"扶摇飞杆",y:"杂技类",m:5,ts:["14:40","16:20","18:20"]},
+ {n:"灵石传·初现",y:"舞蹈类",m:15,ts:["15:10","19:55"]},
+ {n:"双人魔方",y:"杂技类",m:5,o:1},
+]},
+]},
+{name:"十里洋场区",short:"洋场",sub:"含西部武侠影视区",venues:[
+{v:"全域",shows:[
+ {n:"十里洋场·全域狂欢盛典",y:"舞蹈类",m:20,ts:["20:00"]},
+]},
+{v:"廖氏武馆",shows:[
+ {n:"叶问",y:"实景武术类",m:15,ts:["09:00","14:00"]},
+ {n:"万象星河",y:"舞蹈互动类",m:10,ts:["14:35"]},
+ {n:"摩登快闪",y:"舞蹈类",m:10,ts:["15:35"]},
+ {n:"弥敦道",y:"舞蹈类",m:10,ts:["16:10","17:30"]},
+]},
+{v:"百乐门",shows:[
+ {n:"独乐齐奏",y:"乐器类",m:15,ts:["09:45","10:55","12:30"]},
+ {n:"全甲格斗",y:"实景类",m:30,o:1},
+ {n:"十二绮梦 · 弗洛伊德幻境",y:"舞蹈类",m:10,ts:["20:30"]},
+ {n:"假面舞会",y:"舞蹈类",m:10,ts:["20:40"]},
+ {n:"芝加哥之夜",y:"舞蹈类",m:10,ts:["21:00"],s:1},
+ {n:"百乐舞汇",y:"舞蹈类",m:40,ts:["21:20"],s:1},
+]},
+{v:"西部小镇",shows:[
+ {n:"土耳其奇技盛宴",y:"杂技类",m:5,ts:["10:40","12:00","12:50"]},
+ {n:"铃鼓狂欢",y:"舞蹈类",m:7,ts:["14:20","16:35"]},
+ {n:"西部牛仔好声音",y:"音乐互动类",m:50,ts:["15:00","17:00","18:40"]},
+ {n:"布达佩斯的邂逅",y:"舞蹈类",m:8,ts:["19:40"]},
+ {n:"海上烈歌",y:"舞蹈类",m:6,ts:["20:35"]},
+]},
+{v:"包子铺",shows:[
+ {n:"猛龙过江",y:"实景武术类",m:15,ts:["10:10","19:30"]},
+ {n:"往事如烟",y:"舞蹈类",m:15,ts:["14:20"]},
+ {n:"疯狂disco",y:"舞蹈类",m:20,ts:["15:00"]},
+ {n:"霓虹狂想",y:"舞蹈类",m:7,ts:["15:20"]},
+]},
+{v:"十里洋场",shows:[
+ {n:"舞步三叠",y:"舞蹈类",m:10,ts:["15:50"]},
+ {n:"东方绮梦",y:"舞蹈类",m:25,ts:["16:55"]},
+ {n:"旗袍巡游",y:"巡游类",m:45,ts:["17:50"],s:1},
+ {n:"十里洋场·风华大巡游",y:"巡游类",m:40,ts:["18:50"],s:1},
+]},
+{v:"西洋街全域",shows:[
+ {n:"洋场欢乐颂",y:"舞蹈类",m:20,ts:["16:20"]},
+]},
+{v:"西洋街西广场",shows:[
+ {n:"木偶艺术家",y:"互动类",m:15,ts:["10:25","11:10","12:40","13:40","15:15"]},
+ {n:"印度特色舞蹈",y:"舞蹈类",m:10,ts:["14:10","15:00","20:50"]},
+ {n:"阿拉伯民俗舞",y:"舞蹈类",m:10,ts:["14:30","15:10","18:20"]},
+ {n:"三人机械舞",y:"舞蹈类",m:10,ts:["14:50"]},
+ {n:"神秘皮箱",y:"情景剧",m:10,ts:["16:00","17:30"]},
+ {n:"格鲁吉亚战舞",y:"舞蹈类",m:10,o:1},
+]},
+{v:"八角楼",shows:[
+ {n:"哥伦比亚激情桑巴",y:"舞蹈类",m:10,ts:["12:10","13:05","15:00"]},
+ {n:"默剧小丑",y:"互动类",m:15,ts:["16:40"]},
+ {n:"秘鲁风情演唱",y:"音乐类",m:10,ts:["18:40","19:20","20:30","21:20"]},
+]},
+{v:"云阶广场",shows:[
+ {n:"埃及大裙舞",y:"舞蹈类",m:10,ts:["10:40","12:50","14:55","16:50"]},
+ {n:"洋场大追捕",y:"情景剧",m:10,ts:["15:50","17:20"]},
+ {n:"拉恰舞",y:"舞蹈类",m:10,o:1},
+]},
+{v:"欢涌广场",shows:[
+ {n:"墨西哥踢踏舞",y:"舞蹈类",m:10,ts:["13:40","14:30","18:20"]},
+ {n:"阿根廷踢踏甩鞭舞",y:"舞蹈类",m:10,ts:["14:20","17:40","19:00"]},
+ {n:"白俄罗斯火舞",y:"舞蹈类",m:10,ts:["18:10","19:10","20:20"]},
+ {n:"三个火枪手",y:"实景剧类",m:15,o:1},
+]},
+{v:"西洋街主干道",shows:[
+ {n:"菲律宾迎宾",y:"乐器类",m:15,ts:["14:00","18:10","21:00"]},
+ {n:"智利双人背鼓",y:"乐器类",m:15,ts:["17:50","18:50","20:35"]},
+ {n:"哥伦比亚游走乐队",y:"乐器类",m:10,o:1},
+]},
+{v:"佛朗明戈室内",shows:[
+ {n:"俄罗斯双人乐队",y:"音乐类",m:10,ts:["17:45","18:30","20:50","21:50"]},
+]},
+{v:"教堂",shows:[
+ {n:"桥头第一枪",y:"情景剧",m:10,ts:["15:30","17:00"]},
+ {n:"芭蕾",y:"舞蹈类",m:10,ts:["17:40","18:55"]},
+]},
+{v:"西洋街东广场",shows:[
+ {n:"俄罗斯音乐人偶",y:"互动类",m:15,ts:["13:30","14:40"]},
+]},
+/* ===== 西部武侠影视区 ===== */
+{v:"西大门",shows:[
+ {n:"老歌茶话会",y:"互动类",m:60,ts:["08:25","13:40"]},
+ {n:"高桩舞狮",y:"民俗类",m:10,ts:["09:25","11:40"],s:1},
+]},
+{v:"国潮舞台",shows:[
+ {n:"飘大大喜乐会",y:"达人互动类",m:60,ts:["09:40"]},
+ {n:"花式高跷",y:"民俗类",m:20,ts:["12:00","13:20","14:40","17:00"]},
+ {n:"花草小课堂",y:"互动类",m:60,ts:["12:20","17:30"]},
+ {n:"媒婆夺魁",y:"互动类",m:60,ts:["16:00","19:00"]},
+]},
+{v:"影视街",shows:[
+ {n:"桌狮",y:"民俗类",m:10,ts:["08:50","10:40","12:10","15:35"]},
+ {n:"宝芝林舞狮会",y:"民俗类",m:20,ts:["09:20","14:15","17:45"]},
+ {n:"狮王争霸",y:"实景武术类",m:25,ts:["09:40","14:35"],s:1},
+ {n:"破阵武影",y:"实景武术类",m:5,ts:["11:35","15:30","18:25","20:20"]},
+]},
+{v:"影视街中院",shows:[
+ {n:"小仓娃",y:"戏曲类",m:10,ts:["09:10","10:40","12:40","13:30","14:10"]},
+ {n:"三打白骨精",y:"戏曲类",m:10,ts:["09:30","11:30","12:20","13:10","14:00"]},
+ {n:"朝阳沟",y:"戏曲类",m:10,o:1},
+ {n:"爬杆",y:"民俗类",m:5,ts:["13:00","14:00","15:05","15:55"]},
+ {n:"板凳龙杂技",y:"民俗类",m:5,ts:["13:05","14:05","15:10","16:00","17:35"]},
+ {n:"飘大大喜乐会",y:"达人互动类",m:60,ts:["16:10"]},
+]},
+{v:"影视街南院",shows:[
+ {n:"扒苞米大赛",y:"互动类",m:15,ts:["08:55","16:13"]},
+ {n:"大花袄舞队",y:"舞蹈类",m:10,ts:["09:30","11:35","14:15"]},
+ {n:"折子戏-白水滩",y:"戏曲类",m:10,ts:["09:40","12:00","12:50","13:40"]},
+ {n:"戏法大揭秘",y:"非遗类",m:30,ts:["09:40","12:30","15:05","16:50"]},
+ {n:"唐伯虎点秋香",y:"戏曲类",m:10,ts:["09:50","11:20","12:30","13:20","14:20"]},
+ {n:"军民一家亲",y:"互动类",m:20,ts:["10:00","15:30","18:35"]},
+ {n:"土匪抢粮",y:"实景武术类",m:20,ts:["10:20","15:50","18:55"],s:1},
+ {n:"大秧歌",y:"舞蹈类",m:10,ts:["10:50","17:00","19:35"]},
+ {n:"城北枪声",y:"实景武术类",m:20,ts:["11:00","17:10","19:45"],s:1},
+ {n:"抓壮丁",y:"实景互动类",m:16,ts:["11:40","16:30"]},
+ {n:"老歌茶话会",y:"互动类",m:60,o:1},
+]},
+{v:"桃花岛",shows:[
+ {n:"非遗碗乐",y:"非遗类",m:25,ts:["11:10","12:05","13:05","14:40","15:35"]},
+ {n:"桃花岛",y:"实景武术类",m:15,ts:["11:50","16:35","17:50"]},
+ {n:"锦扇凝香",y:"舞蹈类",m:5,ts:["18:10","20:20"]},
+ {n:"盘丝洞",y:"戏曲类",m:10,ts:["19:17","20:05","20:40"]},
+]},
+{v:"影视街书场",shows:[
+ {n:"河南坠子",y:"曲艺类",m:20,ts:["11:00","12:00","15:00","16:55","18:25"]},
+]},
+{v:"西关老街",shows:[
+ {n:"影视大揭秘",y:"互动类",m:10,ts:["10:00","11:30","14:00","16:00"]},
+ {n:"皮影戏",y:"非遗类",m:30,ts:["12:00","13:30","15:30","18:20"]},
+ {n:"坠子书",y:"曲艺类",m:20,ts:["09:00","11:00","11:40","13:20","14:00"]},
+ {n:"五不闲",y:"曲艺类",m:20,ts:["09:20","11:20","12:00","13:40","14:20"]},
+ {n:"非遗腹语",y:"非遗类",m:20,ts:["09:40","14:40"]},
+ {n:"古彩戏法",y:"非遗类",m:15,ts:["09:20","10:35","12:00","14:20","15:15"]},
+ {n:"曲艺节目",y:"曲艺类",m:20,o:1},
+]},
+{v:"影视博物馆",shows:[
+ {n:"大电影",y:"互动类",m:120,ts:["19:00"]},
+]},
+{v:"北街",shows:[
+ {n:"剪纸舞",y:"舞蹈类",m:10,ts:["09:00","14:50","19:15"]},
+ {n:"老歌茶话会",y:"互动类",m:60,o:1},
+]},
+{v:"千秋湖",shows:[
+ {n:"战鼓",y:"乐器类",m:15,ts:["10:00","14:00","10:25","11:30","14:15"]},
+ {n:"舞麒麟",y:"舞蹈类",m:10,ts:["10:15","11:20","12:10","15:50","16:35","17:20"]},
+ {n:"秦王点兵",y:"民俗类",m:10,ts:["11:50","13:45","15:00","16:50"]},
+ {n:"烟雨云台",y:"武术类",m:15,ts:["15:15","16:10"]},
+ {n:"鹤",y:"舞蹈类",m:10,ts:["17:10","18:05","19:00"]},
+ {n:"水上飞人",y:"特技类",m:10,ts:["17:30","18:20"]},
+ {n:"《山河逐光》光影秀",y:"特效类",m:3,ts:["19:55","20:30"]},
+ {n:"《辛弃疾·元夕》",y:"实景剧类",m:20,ts:["20:50"]},
+ {n:"波普力舞",y:"舞蹈类",m:20,o:1},
+ {n:"火龙",y:"民俗类",m:5,o:1},
+ {n:"《千秋湖歌舞会》",y:"歌舞类",m:60,o:1},
+]},
+]},
+];
+
+/* ============ 逻辑 ============ */
+var cur=0, view="venue", hideOff=true, starOnly=false;
+var NOW=new Date();
+function pad(n){return (n<10?"0":"")+n}
+function t2m(s){var m=/^(\d{1,2}):(\d{2})/.exec(s);return m?(+m[1]*60+(+m[2])):null}
+function firstTime(sh){if(sh.o)return null;var best=null;sh.ts.forEach(function(t){var m=t2m(t);if(m!=null&&(best==null||m<best))best=m});return best}
+function isTBD(t){return t.indexOf("待定")>=0}
+function showChips(sh,marks){
+  if(sh.o)return '<span class="chip off">今日停演</span>';
+  var html='';
+  sh.ts.forEach(function(t){
+    var cls="chip";if(isTBD(t))cls+=" tbd";
+    var st=t2m(t),en=st==null?null:st+sh.m;
+    if(qs.photo!="1"&&st!=null&&en!=null){
+      var nm=NOW.getHours()*60+NOW.getMinutes();
+      if(nm>=st&&nm<en)cls+=" now";else if(nm<st&&st-nm<=30)cls+=" soon";
+    }
+    var lab='';
+    if(marks){if(marks.now==st)lab='<span class="lbl now">现在</span>';else if(marks.next==st)lab='<span class="lbl next">下一场</span>';}
+    html+='<span class="'+cls+'">'+t+lab+'</span>';
+  });
+  return html;
+}
+function rowHtml(sh,ven,marks){
+  var star=sh.s?'<span class="star">★</span>':'';
+  var book=sh.b?'<span class="book">需预约</span>':'';
+  return '<div class="row'+(sh.o?" off":"")+'">'+
+    '<div class="nm">'+star+esc(sh.n)+book+'</div>'+
+    '<div class="chips">'+showChips(sh,marks)+'</div>'+
+    '<div class="meta">'+esc(sh.y)+' · '+sh.m+'分钟'+(ven?' · <span class="ven">'+esc(ven)+'</span>':'')+'</div>'+
+  '</div>';
+}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function visibleShow(sh){
+  if(starOnly&&!sh.s)return false;
+  if(hideOff&&sh.o)return false;
+  var q=document.getElementById("q").value.trim();
+  if(q&&sh.n.indexOf(q)<0)return false;
+  return true;
+}
+function sortedVenue(shows){
+  var arr=shows.slice();
+  arr.sort(function(a,b){
+    var fa=firstTime(a),fb=firstTime(b);
+    if(fa==null&&fb==null)return 0;if(fa==null)return 1;if(fb==null)return -1;
+    return fa-fb;
+  });
+  return arr;
+}
+function renderVenues(){
+  var html='<div class="area-title">'+esc(AREAS[cur].name)+' <span style="font-size:12px;color:#9a8d72;letter-spacing:1px">'+esc(AREAS[cur].sub)+'</span></div>';
+  var any=false;
+  AREAS[cur].venues.forEach(function(v){
+    var rows="";
+    sortedVenue(v.shows).forEach(function(sh){
+      if(!visibleShow(sh))return;
+      rows+=rowHtml(sh);
+    });
+    if(!rows)return;
+    any=true;
+    var on=v.shows.filter(visibleShow).length;
+    html+='<div class="venue" data-v="'+esc(v.v)+'"><div class="venue-head"><span class="vname">'+esc(v.v)+'</span><span class="cnt">'+on+' 个节目</span></div>'+rows+'</div>';
+  });
+  document.getElementById("main").innerHTML=any?html:'<div class="empty">没有符合条件的节目，换个筛选条件试试～</div>';
+}
+function renderTimeline(){
+  var html='<div class="area-title">'+esc(AREAS[cur].name)+' · 时间轴 <span style="font-size:12px;color:#9a8d72;letter-spacing:1px">'+esc(AREAS[cur].sub)+'</span></div>';
+  var any=false;
+  for(var h=8;h<=23;h++){
+    var rows="";
+    AREAS[cur].venues.forEach(function(v){
+      v.shows.forEach(function(sh){
+        if(!visibleShow(sh)||sh.o)return;
+        sh.ts.forEach(function(t){
+          var m=t2m(t);if(m==null)return;
+          if(m>=h*60&&m<(h+1)*60)rows+=rowHtml(sh,v.v);
+        });
+      });
+    });
+    if(rows){any=true;html+='<div class="hour"><div class="hour-head"><span>'+pad(h)+':00 – '+pad(h+1)+':00</span><span class="hcnt">'+rows.split('row').length+' 场</span></div>'+rows+'</div>';}
+  }
+  document.getElementById("main").innerHTML=any?html:'<div class="empty">没有符合条件的节目，换个筛选条件试试～</div>';
+}
+function render(){
+  if(qs.photo=="1"){ if(view=="venue")renderVenues(); else renderTimeline(); }
+  else if(mode=="loc")renderLoc();
+  else if(mode=="area")renderArea();
+  else if(view=="venue")renderVenues(); else renderTimeline();
+  if(qs.photo=="1"){
+    var el=document.getElementById("main");
+    el.innerHTML='<div class="ptitle"><div class="p1">⚔️ 万岁山武侠城 · 节目单</div><div class="p2">'+esc(AREAS[cur].name)+' · '+esc(AREAS[cur].sub)+'</div></div>'+el.innerHTML;
+  }
+  renderTabs(); renderNowbar();
+}
+function renderTabs(){
+  var h="";
+  AREAS.forEach(function(a,i){
+    h+='<div class="tab'+(i==cur?" on":"")+'" onclick="cur='+i+';render()">'+esc(a.name)+'<small>'+esc(a.sub)+'</small></div>';
+  });
+  document.getElementById("tabs").innerHTML=h;
+}
+function toggleView(){
+  view=(view=="venue")?"timeline":"venue";
+  document.getElementById("bView").textContent=(view=="venue")?"📅 时间轴":"📍 按片区";
+  render();
+}
+function toggleOff(){hideOff=!hideOff;document.getElementById("bOff").classList.toggle("on",hideOff);render()}
+function toggleStar(){starOnly=!starOnly;document.getElementById("bStar").classList.toggle("on",starOnly);render()}
+function renderNowbar(){
+  var nm=NOW.getHours()*60+NOW.getMinutes(),now=[],soon=[];
+  AREAS.forEach(function(a){
+    a.venues.forEach(function(v){
+      v.shows.forEach(function(sh){
+        if(sh.o)return;
+        sh.ts.forEach(function(t){
+          var st=t2m(t);if(st==null)return;
+          var en=st+sh.m;
+          if(nm>=st&&nm<en)now.push(sh.n+"（"+v.v+"）");
+          else if(nm<st&&st-nm<=30)soon.push(sh.n+"（"+v.v+"）"+t);
+        });
+      });
+    });
+  });
+  var el=document.getElementById("nowbar");
+  if(now.length||soon.length){
+    var h='<b>🕐 '+pad(NOW.getHours())+":"+pad(NOW.getMinutes())+'</b> ';
+    if(now.length)h+='<span class="tm">正在演出</span>'+now.slice(0,6).map(function(x){return '<span class="t">'+esc(x)+'</span>'}).join("")+(now.length>6?" 等"+now.length+"个":"");
+    if(soon.length)h+='<span class="tm" style="margin-left:8px">30分钟内开始</span>'+soon.slice(0,3).map(function(x){return '<span class="soon">'+esc(x)+'</span>'}).join("")+(soon.length>3?" 等"+soon.length+"个":"");
+    el.innerHTML=h;el.style.display="block";
+  }else{el.style.display="none"}
+  var bn=document.getElementById("bNow");
+  if(now.length&&view=="venue"&&mode=="browse"){bn.style.display="block"}else{bn.style.display="none"}
+}
+function scrollNow(){
+  var rows=document.querySelectorAll(".chip.now");
+  if(!rows.length){alert("当前没有正在演出的节目");return}
+  rows[0].scrollIntoView({behavior:"smooth",block:"center"});
+}
+/* ===== 地点查询：当前节目 + 下一场 ===== */
+var mode="loc",locSel=null;
+function fmt(m){return pad(Math.floor(m/60))+":"+pad(m%60)}
+function nowNext(shows){
+  var nm=NOW.getHours()*60+NOW.getMinutes(),now=null,next=null;
+  shows.forEach(function(sh){
+    if(sh.o)return;
+    sh.ts.forEach(function(t){
+      var st=t2m(t);if(st==null)return;
+      var en=st+sh.m;
+      if(nm>=st&&nm<en){if(!now||st>now.st)now={sh:sh,st:st,en:en,t:t}}
+      if(nm<st){if(!next||st<next.st)next={sh:sh,st:st,t:t}}
+    });
+  });
+  return {now:now,next:next};
+}
+function locCardHtml(v){
+  var nn=nowNext(v.shows),nm=NOW.getHours()*60+NOW.getMinutes();
+  var h='<div class="lchead"><span>🕐 现在 '+fmt(nm)+'</span><span class="lcven">'+esc(v.v)+'</span></div>';
+  if(nn.now){
+    var pct=Math.max(3,Math.min(100,Math.round((nm-nn.now.st)/(nn.now.en-nn.now.st)*100)));
+    h+='<div class="lcnow"><div class="lc-l">▶ 正在演出</div><div class="lc-n">'+esc(nn.now.sh.n)+'</div>'+
+       '<div class="lc-m">'+esc(nn.now.sh.y)+' · '+nn.now.sh.m+'分钟 · 至 '+fmt(nn.now.en)+' 结束'+(isTBD(nn.now.t)?" · 待定":"")+'</div>'+
+       '<div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+  }else{
+    h+='<div class="lcnow idle"><div class="lc-l">▶ 当前时段</div><div class="lc-n">暂无演出</div><div class="lc-m">休息时段，没有节目在进行</div></div>';
+  }
+  if(nn.next){
+    var diff=nn.next.st-nm,dtxt;
+    if(diff<=1)dtxt="马上开始";
+    else if(diff<60)dtxt="还有 "+diff+" 分钟开始";
+    else dtxt="还有 "+Math.floor(diff/60)+" 小时 "+pad(diff%60)+" 分开始";
+    h+='<div class="lcnext"><div class="lc-l">⏭ 下一场</div><div class="lc-n">'+esc(nn.next.sh.n)+'</div>'+
+       '<div class="lc-m">'+fmt(nn.next.st)+' 开始 · '+dtxt+(isTBD(nn.next.t)?"（待定）":"")+'</div></div>';
+  }else{
+    h+='<div class="lcnext idle"><div class="lc-l">⏭ 今日演出</div><div class="lc-n">已全部结束</div><div class="lc-m">明天请早 🏮</div></div>';
+  }
+  return h;
+}
+function pickerHtml(){
+  var q=document.getElementById("q").value.trim(),h="";
+  AREAS.forEach(function(a,ai){
+    var btns="";
+    a.venues.forEach(function(v,vi){
+      if(q&&!(v.v.indexOf(q)>=0||v.shows.some(function(s){return s.n.indexOf(q)>=0})))return;
+      var on=locSel&&locSel.a==ai&&locSel.i==vi;
+      btns+='<button class="pv'+(on?' on':'')+'" onclick="locSel={a:'+ai+',i:'+vi+'};render()">'+esc(v.v)+'</button>';
+    });
+    if(btns)h+='<div class="pg-h">'+esc(a.name)+'</div><div class="pg">'+btns+'</div>';
+  });
+  return h;
+}
+function renderLoc(){
+  var html="";
+  if(locSel){
+    var v=AREAS[locSel.a].venues[locSel.i];
+    html+='<div class="loccard" id="loccard">'+locCardHtml(v)+'</div>';
+    html+='<div class="area-title">📍 '+esc(v.v)+' · 全天场次</div>';
+    var nn=nowNext(v.shows),marks={now:nn.now?nn.now.st:null,next:nn.next?nn.next.st:null};
+    var list="";
+    sortedVenue(v.shows).forEach(function(sh){
+      if(!visibleShow(sh))return;
+      list+=rowHtml(sh,null,marks);
+    });
+    html+=list?'<div class="venue">'+list+'</div>':'<div class="empty">该地点今日没有可看的演出</div>';
+  }else{
+    html+='<div class="hint">👆 点下面选你所在的位置<br>马上告诉你：<b>正在演什么、下一场几点开始</b></div>';
+  }
+  html+='<div class="area-title">选地点（随时可换）</div>'+pickerHtml();
+  document.getElementById("main").innerHTML=html;
+}
+function updateLocCard(){
+  if(!locSel)return;
+  var el=document.getElementById("loccard");
+  if(el)el.innerHTML=locCardHtml(AREAS[locSel.a].venues[locSel.i]);
+}
+function setMode(m){
+  mode=m;
+  ["bLoc","bArea","bList"].forEach(function(id){
+    document.getElementById(id).classList.toggle("on",(id=="bLoc"&&m=="loc")||(id=="bArea"&&m=="area")||(id=="bList"&&m=="browse"));
+  });
+  document.getElementById("bView").style.display=(m=="browse")?"":"none";
+  document.getElementById("q").placeholder=(m=="browse")?"🔍 搜索节目名称…":"🔍 搜节目或地点…";
+  render();
+}
+/* ===== 区域实况：全区当前演出 + 下一场推荐 ===== */
+function areaNowList(){
+  var nm=NOW.getHours()*60+NOW.getMinutes(),out=[];
+  AREAS[cur].venues.forEach(function(v){
+    v.shows.forEach(function(sh){
+      if(!visibleShow(sh))return;
+      sh.ts.forEach(function(t){
+        var st=t2m(t);if(st==null)return;
+        var en=st+sh.m;
+        if(nm>=st&&nm<en)out.push({sh:sh,ven:v.v,st:st,en:en,t:t});
+      });
+    });
+  });
+  out.sort(function(a,b){return a.en-b.en});
+  return out;
+}
+function areaNextList(){
+  var nm=NOW.getHours()*60+NOW.getMinutes(),out=[];
+  AREAS[cur].venues.forEach(function(v){
+    v.shows.forEach(function(sh){
+      if(!visibleShow(sh))return;
+      sh.ts.forEach(function(t){
+        var st=t2m(t);if(st==null)return;
+        if(nm<st)out.push({sh:sh,ven:v.v,st:st,t:t});
+      });
+    });
+  });
+  out.sort(function(a,b){return a.st-b.st});
+  return out;
+}
+function renderArea(){
+  var nm=NOW.getHours()*60+NOW.getMinutes();
+  var html='<div class="area-title">🎪 '+esc(AREAS[cur].name)+' · 区域实况 <span style="font-size:12px;color:#9a8d72;letter-spacing:1px">'+esc(AREAS[cur].sub)+'</span></div>';
+  html+='<div class="areabar">🕐 现在 '+fmt(nm)+'</div>';
+  var now=areaNowList(),next=areaNextList();
+  html+='<div class="pg-h">▶ 正在演出 · 同一时间有 '+now.length+' 场</div>';
+  if(now.length){
+    now.forEach(function(it){
+      var pct=Math.max(3,Math.min(100,Math.round((nm-it.st)/(it.en-it.st)*100)));
+      var left=it.en-nm;
+      html+='<div class="ac"><div class="ac-n">'+(it.sh.s?'<span class="star">★</span>':'')+esc(it.sh.n)+'</div>'+
+            '<div class="ac-m">📍'+esc(it.ven)+' · 至 '+fmt(it.en)+' 结束 · 还剩 '+left+' 分钟'+(isTBD(it.t)?" · 待定":"")+'</div>'+
+            '<div class="bar"><i style="width:'+pct+'%"></i></div></div>';
+    });
+  }else{
+    html+='<div class="hint">当前时段 '+esc(AREAS[cur].name)+' 没有正在演出的节目<br>看看下一场去哪里 👇</div>';
+  }
+  html+='<div class="pg-h">⏭ 下一场 · 推荐去哪里看</div>';
+  if(next.length){
+    var rec=next[0],diff=rec.st-nm,dtxt;
+    if(diff<=1)dtxt="马上开始";else if(diff<60)dtxt="还有 "+diff+" 分钟";else dtxt="还有 "+Math.floor(diff/60)+" 小时 "+pad(diff%60)+" 分";
+    html+='<div class="rec"><div class="rc-l">推荐 · '+fmt(rec.st)+' 开始 · '+dtxt+'</div>'+
+          '<div class="rc-n">'+(rec.sh.s?'<span class="star">★</span>':'')+esc(rec.sh.n)+'</div>'+
+          '<div class="rc-m">📍 去 <b>'+esc(rec.ven)+'</b> · '+esc(rec.sh.y)+' · '+rec.sh.m+'分钟'+(isTBD(rec.t)?" · 待定":"")+'</div></div>';
+    var rest=next.slice(1).filter(function(x){return x.st-nm<=60});
+    if(rest.length){
+      html+='<div class="pg-h">接下来 1 小时内还有 '+rest.length+' 场</div><div class="venue">';
+      rest.forEach(function(it){
+        var cls=it.st-nm<=30?" soon":"";
+        html+='<div class="row"><div class="nm">'+(it.sh.s?'<span class="star">★</span>':'')+esc(it.sh.n)+'</div>'+
+              '<div class="chips"><span class="chip '+cls+'">'+fmt(it.st)+'</span></div>'+
+              '<div class="meta">📍'+esc(it.ven)+' · '+esc(it.sh.y)+'</div></div>';
+      });
+      html+='</div>';
+    }
+  }else{
+    html+='<div class="hint">今天 '+esc(AREAS[cur].name)+' 的演出已全部结束 🏮<br>顶部可以切换到其他区看看</div>';
+  }
+  document.getElementById("main").innerHTML=html;
+}
+document.getElementById("q").addEventListener("input",render);
+var qs={};location.search.replace(/[?&]([^=]+)=([^&]*)/g,function(_,k,v){qs[decodeURIComponent(k)]=decodeURIComponent(v)});
+if(qs.photo=="1"){document.body.classList.add("photo");if(qs.area!=null)cur=parseInt(qs.area,10)||0;hideOff=false;}
+NOW=new Date();
+render();
+setInterval(function(){
+  NOW=new Date();renderNowbar();
+  if(mode=="loc"&&locSel)updateLocCard();
+  else if(mode=="area"){var s=window.scrollY;renderArea();window.scrollTo(0,s);}
+},30000);
+</script>
+</body>
+</html>
